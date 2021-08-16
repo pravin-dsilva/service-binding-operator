@@ -12,7 +12,7 @@ Feature: Bind values from a secret referred in backing service resource
         Given Generic test application "ssa-1" is running
         And The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -21,9 +21,45 @@ Feature: Bind values from a secret referred in backing service resource
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            image:
+                              type: string
+                            imageName:
+                              type: string
+                            dbName:
+                              type: string
+                        status:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          properties:
+                            data: 
+                              type: object
+                              properties: 
+                                dbCredentials:
+                                  type: string
+                          type: object
                 scope: Namespaced
                 names:
                     plural: backends
@@ -81,7 +117,7 @@ Feature: Bind values from a secret referred in backing service resource
         Given Generic test application "ssa-2" is running
         And The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -90,9 +126,45 @@ Feature: Bind values from a secret referred in backing service resource
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            image:
+                              type: string
+                            imageName:
+                              type: string
+                            dbName:
+                              type: string
+                        status:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          properties:
+                            data: 
+                              type: object
+                              properties: 
+                                dbCredentials:
+                                  type: string
+                          type: object
                 scope: Namespaced
                 names:
                     plural: backends
@@ -154,16 +226,48 @@ Feature: Bind values from a secret referred in backing service resource
         Given Generic test application "ssd-1" is running
         * The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.foo.example.com
             spec:
                 group: foo.example.com
                 versions:
-                    - name: v1
-                      served: true
-                      storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            host:
+                              type: string
+                        status:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          properties:
+                            data: 
+                              type: object
+                              properties: 
+                                dbCredentials:
+                                  type: string
+                          type: object
                 scope: Namespaced
                 names:
                     plural: backends
@@ -286,16 +390,52 @@ Feature: Bind values from a secret referred in backing service resource
         Given Generic test application "ssd-2" is running
         * The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.bar.example.com
             spec:
                 group: bar.example.com
                 versions:
-                    - name: v1
-                      served: true
-                      storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            image:
+                              type: string
+                            imageName:
+                              type: string
+                            dbName:
+                              type: string
+                        status:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          properties:
+                            data: 
+                              type: object
+                              properties: 
+                                dbCredentials:
+                                  type: string
+                          type: object
                 scope: Namespaced
                 names:
                     plural: backends
@@ -412,7 +552,7 @@ Feature: Bind values from a secret referred in backing service resource
     Scenario: Inject into app all keys from a secret existing in a same namespace with service and different from the service binding
         Given The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -421,9 +561,32 @@ Feature: Bind values from a secret referred in backing service resource
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        status:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          properties:
+                            credentials:
+                              type: string
+                          type: object
                 scope: Namespaced
                 names:
                     plural: backends
@@ -498,7 +661,7 @@ Feature: Bind values from a secret referred in backing service resource
             """
         * The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -507,9 +670,34 @@ Feature: Bind values from a secret referred in backing service resource
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            containers:
+                              type: array
+                              items:
+                                x-kubernetes-preserve-unknown-fields: true
                 scope: Namespaced
                 names:
                     plural: backends

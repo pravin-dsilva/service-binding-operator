@@ -1,3 +1,4 @@
+@runthis
 Feature: Bind multiple applications to a single service
 
     As a user of Service Binding Operator

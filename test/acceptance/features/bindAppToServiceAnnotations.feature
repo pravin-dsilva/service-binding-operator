@@ -13,7 +13,7 @@ Feature: Bind an application to a service using annotations
         Given Generic test application "rsa-2-service" is running
         Given The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -23,9 +23,38 @@ Feature: Bind an application to a service using annotations
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            host:
+                              type: string
+                        status:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          properties:
+                            ready:
+                              type: boolean
+                          type: object
                 scope: Namespaced
                 names:
                     plural: backends
@@ -74,7 +103,7 @@ Feature: Bind an application to a service using annotations
         Given Generic test application "rsa-2-service" is running
         And The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -83,9 +112,36 @@ Feature: Bind an application to a service using annotations
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            image:
+                              type: string
+                            imageName:
+                              type: string
+                            dbName:
+                              type: string
                 scope: Namespaced
                 names:
                     plural: backends
@@ -145,7 +201,7 @@ Feature: Bind an application to a service using annotations
         Given Generic test application "slos-app" is running
         And The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -154,9 +210,34 @@ Feature: Bind an application to a service using annotations
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            tags:
+                              type: array
+                              items:
+                                type: string
                 scope: Namespaced
                 names:
                     plural: backends
@@ -207,7 +288,7 @@ Feature: Bind an application to a service using annotations
         Given Generic test application "slom-to-slos-app" is running
         And The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -216,9 +297,39 @@ Feature: Bind an application to a service using annotations
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            connections:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  type:
+                                    type: string
+                                  url:
+                                    type: string
                 scope: Namespaced
                 names:
                     plural: backends
@@ -272,7 +383,7 @@ Feature: Bind an application to a service using annotations
         Given Generic test application "slom-app" is running
         And The Custom Resource Definition is present
             """
-            apiVersion: apiextensions.k8s.io/v1beta1
+            apiVersion: apiextensions.k8s.io/v1
             kind: CustomResourceDefinition
             metadata:
                 name: backends.stable.example.com
@@ -281,9 +392,39 @@ Feature: Bind an application to a service using annotations
             spec:
                 group: stable.example.com
                 versions:
-                  - name: v1
-                    served: true
-                    storage: true
+                - name: v1
+                  served: true
+                  storage: true
+                  schema:
+                    openAPIV3Schema:
+                      type: object
+                      description: ServiceBinding is the Schema for the servicebindings API
+                      properties:
+                        apiVersion:
+                          description: 'APIVersion defines the versioned schema of this representation
+                            of an object. Servers should convert recognized schemas to the latest
+                            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+                          type: string
+                        kind:
+                          description: 'Kind is a string value representing the REST resource this
+                            object represents. Servers may infer this from the endpoint the client
+                            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                          type: string
+                        metadata:
+                          type: object
+                        spec:
+                          description: ServiceBindingSpec defines the desired state of ServiceBinding
+                          type: object
+                          properties:
+                            connections:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  type:
+                                    type: string
+                                  url:
+                                    type: string
                 scope: Namespaced
                 names:
                     plural: backends
